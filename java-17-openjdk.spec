@@ -4,7 +4,7 @@
 # Without bootstrap, the package BuildRequires
 # rpm-javamacros (which in turn requires this package)
 # so jmod(*) and java(*) Provides: can be generated correctly.
-%bcond_without bootstrap
+%bcond_with bootstrap
 # Using rpm's debug package splitter is suboptimal because OpenJDK
 # packages various shared library files inside zip (jmod) packages.
 # Those aren't seen by the splitter and therefore get insanely large.
