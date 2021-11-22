@@ -1,4 +1,5 @@
 # Use gcc instead of clang
+# As of 17.0.1/clang 13, we get compile time crashes
 %bcond_without gcc
 %bcond_without system_jdk
 # Without bootstrap, the package BuildRequires
@@ -20,21 +21,26 @@
 
 %define major %(echo %{version} |cut -d. -f1)
 %define ver %(echo %{version} |rev |cut -d. -f2- |rev)
-%define minor 35
+%define minor 12
 #For non-GA releases: %(echo %{version} |rev |cut -d. -f1 |rev)
 # OpenJDK X requires OpenJDK >= X-1 to build -- so we need
 # to determine the previous version to get build dependencies
 # right
 %define oldmajor %(echo $((%{major}-1)))
+%if "%{ver}" == "%{major}.0.0"
+%define vercode %{major}
+%else
+%define vercode %{ver}
+%endif
 
 Name:		java-17-openjdk
-Version:	17.0.0.%{minor}
-Release:	4
+Version:	17.0.1.%{minor}
+Release:	1
 Summary:	Java Runtime Environment (JRE) %{major}
 Group:		Development/Languages
 License:	GPLv2, ASL 1.1, ASL 2.0, LGPLv2.1
 URL:		http://openjdk.java.net/
-Source0:	https://github.com/openjdk/jdk17u/archive/refs/tags/jdk-%{ver}+%{minor}.tar.gz
+Source0:	https://github.com/openjdk/jdk%{major}u/archive/refs/tags/jdk-%{ver}+%{minor}.tar.gz
 # Extra tests
 Source50:	TestCryptoLevel.java
 Source51:	TestECDSA.java
@@ -47,7 +53,6 @@ Patch4:		https://src.fedoraproject.org/rpms/java-openjdk/raw/master/f/pr3183-rh1
 # Patches from OpenMandriva
 Patch1002:	java-12-compile.patch
 Patch1003:	openjdk-15-nss-3.57.patch
-Patch1004:	openjdk-16-glibc-2.34.patch
 #Patch1005:	openjdk-13-fix-build.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -183,7 +188,7 @@ Group:		Development/Debug
 Debug information for package %{name}
 
 %prep
-%autosetup -p1 -n jdk17u-jdk-17-%{minor}
+%autosetup -p1 -n jdk%{major}u-jdk-%{vercode}-%{minor}
 
 EXTRA_CFLAGS="$(echo %{optflags} -fuse-ld=bfd -Wno-error -fno-delete-null-pointer-checks -Wformat -Wno-cpp |sed -r -e 's|-O[0-9sz]*||;s|-Werror=format-security||g')"
 EXTRA_CXXFLAGS="$EXTRA_CFLAGS"
