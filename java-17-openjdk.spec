@@ -35,7 +35,7 @@
 
 Name:		java-17-openjdk
 Version:	17.0.1.%{minor}
-Release:	1
+Release:	2
 Summary:	Java Runtime Environment (JRE) %{major}
 Group:		Development/Languages
 License:	GPLv2, ASL 1.1, ASL 2.0, LGPLv2.1
@@ -140,6 +140,11 @@ Provides:	java-gui-current = %{EVRD}
 # So we have to require one of the compatibility provides of
 # the main package instead.
 Requires:	java-%{major}-openjdk-headless = 1:%{version}-%{release}
+# We need the exact version, not the jmod(*) bits that
+# may also be provided by other OpenJDK versions
+Requires:	%{name}-module-java.datatransfer = %{EVRD}
+Requires:	%{name}-module-java.prefs = %{EVRD}
+Requires:	%{name}-module-java.xml = %{EVRD}
 # For compatibility with JPackage/Fedora/Mageia packaging
 Provides:	java-%{major}-openjdk = %{EVRD}
 Provides:	java-openjdk = %{EVRD}
