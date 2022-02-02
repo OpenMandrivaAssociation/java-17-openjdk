@@ -21,7 +21,7 @@
 
 %define major %(echo %{version} |cut -d. -f1)
 %define ver %(echo %{version} |rev |cut -d. -f2- |rev)
-%define minor 12
+%define minor 8
 #For non-GA releases: %(echo %{version} |rev |cut -d. -f1 |rev)
 # OpenJDK X requires OpenJDK >= X-1 to build -- so we need
 # to determine the previous version to get build dependencies
@@ -34,8 +34,8 @@
 %endif
 
 Name:		java-17-openjdk
-Version:	17.0.1.%{minor}
-Release:	2
+Version:	17.0.2.%{minor}
+Release:	1
 Summary:	Java Runtime Environment (JRE) %{major}
 Group:		Development/Languages
 License:	GPLv2, ASL 1.1, ASL 2.0, LGPLv2.1
@@ -360,6 +360,7 @@ chmod +x %{buildroot}%{_sysconfdir}/profile.d/*.*sh
 %{_jvmdir}/java-%{major}-openjdk/lib/libjli.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libjsig.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libjsound.so
+%{_jvmdir}/java-%{major}-openjdk/lib/libjsvml.so
 %{_jvmdir}/java-%{major}-openjdk/lib/liblcms.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libmanagement_agent.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libmanagement_ext.so
@@ -371,9 +372,6 @@ chmod +x %{buildroot}%{_sysconfdir}/profile.d/*.*sh
 %{_jvmdir}/java-%{major}-openjdk/lib/librmi.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libsaproc.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libsctp.so
-%ifarch %{x86_64}
-%{_jvmdir}/java-%{major}-openjdk/lib/libsvml.so
-%endif
 %{_jvmdir}/java-%{major}-openjdk/lib/libsyslookup.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libverify.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libzip.so
