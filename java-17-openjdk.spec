@@ -360,7 +360,9 @@ chmod +x %{buildroot}%{_sysconfdir}/profile.d/*.*sh
 %{_jvmdir}/java-%{major}-openjdk/lib/libjli.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libjsig.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libjsound.so
+%ifarch %{x86_64}
 %{_jvmdir}/java-%{major}-openjdk/lib/libjsvml.so
+%endif
 %{_jvmdir}/java-%{major}-openjdk/lib/liblcms.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libmanagement_agent.so
 %{_jvmdir}/java-%{major}-openjdk/lib/libmanagement_ext.so
