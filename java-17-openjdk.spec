@@ -1,7 +1,7 @@
 # Use gcc instead of clang
 # As of 17.0.1/clang 13, we get compile time crashes
 %bcond_without gcc
-%bcond_without system_jdk
+%bcond_with system_jdk
 # Without bootstrap, the package BuildRequires
 # rpm-javamacros (which in turn requires this package)
 # so jmod(*) and java(*) Provides: can be generated correctly.
@@ -21,7 +21,7 @@
 
 %define major %(echo %{version} |cut -d. -f1)
 %define ver %(echo %{version} |rev |cut -d. -f2- |rev)
-%define minor 8
+%define minor 5
 #For non-GA releases: %(echo %{version} |rev |cut -d. -f1 |rev)
 # OpenJDK X requires OpenJDK >= X-1 to build -- so we need
 # to determine the previous version to get build dependencies
@@ -34,7 +34,7 @@
 %endif
 
 Name:		java-17-openjdk
-Version:	17.0.2.%{minor}
+Version:	17.0.3.%{minor}
 Release:	1
 Summary:	Java Runtime Environment (JRE) %{major}
 Group:		Development/Languages
@@ -429,7 +429,6 @@ chmod +x %{buildroot}%{_sysconfdir}/profile.d/*.*sh
 %{_jvmdir}/java-%{major}-openjdk/jmods/jdk.internal.vm.ci.jmod
 %{_jvmdir}/java-%{major}-openjdk/jmods/jdk.internal.vm.compiler.jmod
 %{_jvmdir}/java-%{major}-openjdk/jmods/jdk.internal.vm.compiler.management.jmod
-%{_jvmdir}/java-%{major}-openjdk/jmods/jdk.internal.jvmstat.jmod
 %{_jvmdir}/java-%{major}-openjdk/bin/jar
 %{_jvmdir}/java-%{major}-openjdk/bin/jarsigner
 %{_jvmdir}/java-%{major}-openjdk/bin/javac
